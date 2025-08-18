@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3.9.6-eclipse-temurin-21'
-            args "-v /root/.m2:/root/.m2 -v C:/ProgramData/Jenkins/.jenkins/workspace/simpleapi-pipeline:/workspace -w /workspace"
+            args "-v /root/.m2:/root/.m2 -v C:\ProgramData\Jenkins\.jenkins\workspace\simpleapi-pipeline"
         }
     }
     stages {
