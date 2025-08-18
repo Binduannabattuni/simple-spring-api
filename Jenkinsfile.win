@@ -1,13 +1,10 @@
 pipeline {
     agent {
         docker {
-            // Use a Docker image that has JDK 21 and Maven installed
-            // You can use an official maven image with OpenJDK 21
             image 'maven:3.9.6-eclipse-temurin-21'
-            args '-v /root/.m2:/root/.m2'  // cache maven dependencies
+            args "-v /root/.m2:/root/.m2 -v C:/ProgramData/Jenkins/.jenkins/workspace/simpleapi-pipeline:/workspace -w /workspace"
         }
     }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,14 +12,12 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Binduannabattuni/simple-spring-api.git'
             }
         }
-
         stage('Build') {
             steps {
                 echo 'Building with Maven...'
                 sh 'mvn clean install'
             }
         }
-
         stage('Test') {
             steps {
                 echo 'Running tests...'
@@ -30,11 +25,10 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/*.xml'
+                    junit '/target/surefire-reports/*.xml'
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 echo 'Deploying to a server...'
