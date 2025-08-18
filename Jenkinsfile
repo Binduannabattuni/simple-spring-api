@@ -12,7 +12,6 @@ pipeline{
     }
 
     stages {
-
         // stage to checkout the code from the repository
          stage('Checkout') {
             steps {
@@ -45,7 +44,7 @@ pipeline{
                 }
             }
         }
-        
+
         // stage to deploy the application
         // this stage will deploy the application to a server
         stage('Deploy') {
