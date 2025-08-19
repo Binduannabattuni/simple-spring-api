@@ -13,9 +13,10 @@ pipeline {
 
     environment {
         // define the SonarQube server URL and credentials
-        SONARQUBE_SERVER = 'SONARCLOUD'
+        SONARQUBE_SERVER = 'SonarCloud'
         SONAR_PROJECT_KEY = 'ashish-panicker_simple-spring-api'
         SONAR_PROJECT_NAME = 'simple-spring-api'
+        SONAR_ORGANIZATION = 'ashish-panicker'
     }
 
     stages {
@@ -60,6 +61,7 @@ pipeline {
                     sh """
                         mvn sonar:sonar \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                        -Dsonar.organization=${SONAR_ORGANIZATION} \
                         -Dsonar.projectName=${SONAR_PROJECT_NAME} \
                     """
                 }
