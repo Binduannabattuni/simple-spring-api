@@ -13,7 +13,7 @@ pipeline {
 
     environment {
         // define the SonarQube server URL and credentials
-        SONARQUBE_SERVER = 'SonarCloud'
+        SONARQUBE_SERVER = 'sonar_ID'
         SONAR_PROJECT_KEY = 'ashish-panicker_simple-spring-api'
         // Display Name in SonarQube
         SONAR_PROJECT_NAME = 'simple-spring-api' 
@@ -118,7 +118,7 @@ pipeline {
             steps {
                 echo "Logging into registry and pushing ${DOCKER_IMAGE}:${IMAGE_TAG}"
                 withCredentials([usernamePassword(
-                    credentialsId: Docker_id,
+                    credentialsId:  DOCKERHUB_CREDENTIALS,
                     usernameVariable: 'DOCKERHUB_USERNAME',
                     passwordVariable: 'DOCKERHUB_PASSWORD'
                 )]) {
