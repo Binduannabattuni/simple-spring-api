@@ -48,7 +48,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building with Maven...'
-                sh 'mvn clean install'
+                bat 'mvn clean install'
             }
         }
 
@@ -57,7 +57,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'mvn test'
+                bat 'mvn test'
             }
             // post actions for the test stage
             post {
@@ -72,7 +72,7 @@ pipeline {
             steps {
                 echo 'Running SonarQube analysis...'
                 withSonarQubeEnv(SONARQUBE_SERVER) {
-                    sh """
+                    bat """
                         mvn sonar:sonar \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                         -Dsonar.organization=${SONAR_ORGANIZATION} \
@@ -104,7 +104,7 @@ pipeline {
                     // Use a deterministic image tag per build (BUILD_NUMBER) and also tag as 'latest'
                     env.IMAGE_TAG = "${env.BUILD_NUMBER}"
                 }
-                sh """
+                bat """
                     echo "Building Docker image: ${DOCKER_IMAGE}:${IMAGE_TAG}"
                     docker build --pull -t ${DOCKER_IMAGE}:${IMAGE_TAG} -t ${DOCKER_IMAGE}:latest .
                 """
@@ -122,7 +122,7 @@ pipeline {
                     usernameVariable: 'DOCKERHUB_USERNAME',
                     passwordVariable: 'DOCKERHUB_PASSWORD'
                 )]) {
-                    sh '''
+                    bat '''
                         echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
                         docker push ${DOCKER_IMAGE}:${IMAGE_TAG}
                         docker push ${DOCKER_IMAGE}:latest
