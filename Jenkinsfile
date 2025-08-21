@@ -71,7 +71,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
-                withSonarQubeEnv(SONARQUBE_SERVER) {
+                withSonarQubeEnv(sonar_ID) {
                     bat """
                         mvn sonar:sonar \
                         -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
@@ -118,7 +118,7 @@ pipeline {
             steps {
                 echo "Logging into registry and pushing ${DOCKER_IMAGE}:${IMAGE_TAG}"
                 withCredentials([usernamePassword(
-                    credentialsId: "${DOCKERHUB_CREDENTIALS}",
+                    credentialsId: "${Docker_id}",
                     usernameVariable: 'DOCKERHUB_USERNAME',
                     passwordVariable: 'DOCKERHUB_PASSWORD'
                 )]) {
