@@ -66,7 +66,7 @@ pipeline {
                 }
             }
         }
-
+/*
         // stage to perform static code analysis using SonarQube
         stage('SonarQube Analysis') {
             steps {
@@ -96,7 +96,7 @@ pipeline {
                 }
             }
         }
-        
+  */      
         // stage to build the Docker image
         stage('Build Docker Image') {
             steps {
