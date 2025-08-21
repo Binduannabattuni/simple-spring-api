@@ -118,7 +118,7 @@ pipeline {
             steps {
                 echo "Logging into registry and pushing ${DOCKER_IMAGE}:${IMAGE_TAG}"
                 withCredentials([usernamePassword(
-                    credentialsId: "${Docker_id}",
+                    credentialsId: Docker_id,
                     usernameVariable: 'DOCKERHUB_USERNAME',
                     passwordVariable: 'DOCKERHUB_PASSWORD'
                 )]) {
